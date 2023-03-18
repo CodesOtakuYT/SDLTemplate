@@ -10,6 +10,7 @@ Window::Window(const std::string &title, int width, int height, SDL_WindowFlags 
 std::expected<void, const char *> Window::init() {
     if (SDL_InitSubSystem(SDL_InitFlags::SDL_INIT_VIDEO))
         return std::unexpected(SDL_GetError());
+    return {};
 }
 
 void Window::quit() {

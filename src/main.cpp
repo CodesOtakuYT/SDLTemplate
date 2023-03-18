@@ -5,6 +5,7 @@ int main() {
     auto result = Window::init();
     if (!result) {
         SDL_LogCritical(SDL_LogCategory::SDL_LOG_CATEGORY_ERROR, result.error());
+        return 1;
     }
 
     try {
@@ -24,6 +25,7 @@ int main() {
         }
     } catch (std::exception &exception) {
         SDL_LogCritical(SDL_LogCategory::SDL_LOG_CATEGORY_ERROR, exception.what());
+        return 1;
     }
 
     Window::quit();
