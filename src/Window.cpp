@@ -1,7 +1,8 @@
 #include "Window.h"
 #include "stdexcept"
+#include "SDL.h"
 
-Window::Window(const std::string &title, int width, int height, SDL_WindowFlags flags)
+Window::Window(const std::string &title, int width, int height, unsigned int flags)
         : m_window(SDL_CreateWindow(title.c_str(), width, height, flags), &SDL_DestroyWindow) {
     if (!m_window)
         throw std::runtime_error(SDL_GetError());
