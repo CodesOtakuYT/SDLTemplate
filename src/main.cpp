@@ -1,33 +1,37 @@
 #include "Window.h"
 #include "SDL.h"
 
-int main() {
-    auto result = Window::init();
-    if (!result) {
-        SDL_LogCritical(SDL_LogCategory::SDL_LOG_CATEGORY_ERROR, result.error());
-        return 1;
-    }
-
-    try {
-        Window window("CODOTAKU");
-        bool isRunning = true;
-
-        while (isRunning) {
-            std::optional<SDL_Event> event;
-            while ((event = Window::pollEvent()))
-                switch (event->type) {
-                    case SDL_EventType::SDL_EVENT_QUIT:
-                        isRunning = false;
-                        break;
-                }
-
-            // RENDER
+void handleInput(bool &shouldQuit) {
+    std::optional<SDL_Event> event;
+    while ((event = Window::pollEvent()))
+        switch (event->type) {
+            case SDL_EventType::SDL_EVENT_QUIT:
+                shouldQuit = true;
+                break;
         }
-    } catch (std::exception &exception) {
-        SDL_LogCritical(SDL_LogCategory::SDL_LOG_CATEGORY_ERROR, exception.what());
+}
+
+int main(int argc, char *argv[]) {
+    try {
+        // Application Start
+        Window window("CODOTAKU");
+
+        // Application Loop
+        bool shouldQuit = false;
+        while (!shouldQuit) {
+            handleInput(shouldQuit);
+            // Update
+            // Render
+        }
+    } catch (const std::exception &exception) {
+        auto errorMessage = exception.what();
+        SDL_LogCritical(SDL_LogCategory::SDL_LOG_CATEGORY_ERROR, "%s", errorMessage);
+        SDL_ShowSimpleMessageBox(SDL_MessageBoxFlags::SDL_MESSAGEBOX_ERROR, "Error Message", errorMessage, nullptr);
+        SDL_Quit();
         return 1;
     }
 
-    Window::quit();
+    // must be called even if all subsystems are shut down
+    SDL_Quit();
     return 0;
 }

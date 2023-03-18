@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <string>
-#include <expected>
 #include <optional>
 
 // SDL Forward Declarations
@@ -18,9 +17,7 @@ public:
     explicit Window(const std::string &title, int width = 800, int height = 600,
                     unsigned int flags = 0);
 
-    static std::expected<void, const char *> init();
-
-    static void quit();
+    ~Window();
 
     static std::optional<SDL_Event> pollEvent();
 };
