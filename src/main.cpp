@@ -11,7 +11,7 @@ void handleInput(bool &shouldQuit) {
         }
 }
 
-int main(int argc, char *argv[]) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
     try {
         // Application Start
         Window window("CODOTAKU");
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // must be called even if all subsystems are shut down
+    // Must be called even if all subsystems are shut down
     SDL_Quit();
     return 0;
 }
