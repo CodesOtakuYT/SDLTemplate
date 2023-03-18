@@ -1,5 +1,5 @@
-#include "SDL.h"
 #include "Window.h"
+#include "SDL.h"
 
 int main() {
     auto result = Window::init();
